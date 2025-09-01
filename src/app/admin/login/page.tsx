@@ -10,9 +10,7 @@ const AdminLoginPage = () => {
 
   return (
     <div className={cn("page")}>
-      <h1 className={cn("title")}>
-        관리자 페이지 <span>(진입 전)</span>
-      </h1>
+      <h1 className={cn("title")}>관리자</h1>
 
       <div className={cn("card")}>
         <p className={cn("label")}>패스워드 입력칸</p>
