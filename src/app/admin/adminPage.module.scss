@@ -1,0 +1,254 @@
+$bg: #0b0b12;
+$panel: #111320;
+$border: rgba(255, 255, 255, 0.12);
+$muted: rgba(255, 255, 255, 0.7);
+$fg: #ffffff;
+$accent1: #7c3aed;
+$accent2: #22d3ee;
+$danger: #ff4d4f;
+
+.page {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: radial-gradient(
+      80rem 40rem at 50% -10%,
+      rgba(124, 58, 237, 0.15),
+      transparent
+    ),
+    radial-gradient(
+      60rem 30rem at 20% 110%,
+      rgba(34, 211, 238, 0.1),
+      transparent
+    ),
+    $bg;
+  color: $fg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+.header {
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: $fg;
+}
+
+.logoutButton {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: $danger;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken($danger, 10%);
+  }
+}
+
+.pageContent {
+  width: 100%;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.backButton {
+  font-size: 0.9rem;
+  color: $muted;
+  text-decoration: none;
+  &:hover {
+    color: $fg;
+  }
+}
+
+/* Table Styles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+
+  th,
+  td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid $border;
+  }
+
+  th {
+    font-weight: 700;
+    color: $muted;
+  }
+
+  /* Make table rows clickable */
+  tbody.clickable tr {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+  }
+
+  td {
+    color: $fg;
+    &:last-child {
+      color: $muted;
+    }
+  }
+}
+
+/* Status Badge Styles */
+.status {
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  display: inline-block;
+
+  &.statusPENDING {
+    background-color: #f59e0b; /* Amber 500 */
+    color: #1f2937;
+  }
+  &.statusRESOLVED {
+    background-color: #10b981; /* Emerald 500 */
+    color: #ffffff;
+  }
+  &.statusSANCTIONED {
+    background-color: $danger;
+    color: #ffffff;
+  }
+}
+
+/* Detail Page Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.cardTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid $border;
+}
+
+.detailList p {
+  margin: 0 0 0.75rem;
+  color: $muted;
+  strong {
+    color: $fg;
+    margin-right: 0.5rem;
+  }
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.actions {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+}
+
+.actionButton {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: filter 0.2s;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+
+  &.sanction {
+    background-color: $danger;
+    color: white;
+  }
+
+  &.resolve {
+    background-color: #4b5563; /* Gray 600 */
+    color: white;
+  }
+}
+
+.card {
+  width: 100%;
+  border-radius: 22px;
+  border: 1px solid $border;
+  background: linear-gradient($panel, $panel) padding-box,
+    linear-gradient(135deg, rgba($accent1, 0.9), rgba($accent2, 0.9)) border-box;
+  padding: 2rem;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset,
+    0 20px 60px rgba(0, 0, 0, 0.35);
+  text-align: left;
+}
+
+.error {
+  color: $danger;
+  margin-bottom: 1rem;
+}
+
+.pre {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid $border;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: $muted;
+}
+
+/* Styles for Reported Content Card */
+.reportedContent {
+  .topicTitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $fg;
+    margin-bottom: 0.5rem;
+  }
+
+  .topicContent {
+    font-size: 0.95rem;
+    color: $muted;
+    border-left: 3px solid $accent1;
+    padding-left: 1rem;
+    margin: 0 0 1.5rem 0;
+    font-style: italic;
+  }
+
+  .answerContent {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 8px;
+    p {
+      margin: 0;
+    }
+  }
+}

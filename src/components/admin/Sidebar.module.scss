@@ -1,0 +1,82 @@
+$bg: #0b0b12;
+$panel: #111320;
+$border: rgba(255, 255, 255, 0.1);
+$muted: rgba(255, 255, 255, 0.7);
+$fg: #ffffff;
+$accent1: #7c3aed;
+$accent2: #22d3ee;
+
+.sidebar {
+  width: 260px;
+  background-color: $panel;
+  border-right: 1px solid $border;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.header {
+  margin-bottom: 2.5rem;
+  padding-left: 0.5rem;
+}
+
+.logo {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: $fg;
+  margin: 0;
+}
+
+.subLogo {
+  font-size: 0.875rem;
+  color: $muted;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navItem {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: $muted;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: $fg;
+  }
+
+  &.active {
+    background: linear-gradient(90deg, $accent1, $accent2);
+    color: $fg;
+    box-shadow: 0 4px 15px rgba($accent1, 0.3);
+  }
+}
+
+.footer {
+  margin-top: auto; /* Pushes footer to the bottom */
+}
+
+.logoutButton {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid $border;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+}
