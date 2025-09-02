@@ -1,0 +1,12 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #0b0b12; /* Using the dark theme background */
+  color: #ffffff;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto; /* Allows content to scroll if it's too long */
+}
