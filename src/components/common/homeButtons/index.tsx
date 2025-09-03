@@ -1,7 +1,6 @@
-"use client";
 import classNames from "classnames/bind";
 import styles from "./homeButtons.module.scss";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 const cn = classNames.bind(styles);
 
 type Item = {
@@ -18,19 +17,18 @@ const buttons: Item[] = [
 ];
 
 export default function HomeButtons() {
-  const router = useRouter();
   return (
     <div className={cn("container")}>
       {buttons.map(({ id, name, route }) => (
-        <button
+        <Link
           key={id}
-          type="button"
-          className={cn("btn", { accent: name === "admin" })} // admin만 강조
+          href={route}
+          prefetch
+          className={cn("btn", { accent: name === "admin" })}
           aria-label={name}
-          onClick={() => router.push(`${route}`)}
         >
           {name}
-        </button>
+        </Link>
       ))}
     </div>
   );
