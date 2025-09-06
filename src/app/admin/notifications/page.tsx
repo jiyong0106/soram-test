@@ -45,6 +45,7 @@ export default function NotificationsPage() {
     if (field === "imageUrl") setImageUrl(value);
   };
 
+  //알림 전송
   const handleSubmit = async () => {
     if (!isValid) return;
     setIsSubmitting(true);
