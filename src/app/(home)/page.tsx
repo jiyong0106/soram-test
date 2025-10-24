@@ -1,3 +1,8 @@
+import type { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "홈",
+  description: "같은 생각으로 연결된 우리, 소람의 랜딩 페이지",
+};
 import HomeButtons from "@/components/common/homeButtons";
 import Hero from "@/components/home/hero";
 import Safety from "@/components/home/safety";

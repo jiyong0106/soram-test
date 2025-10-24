@@ -18,7 +18,7 @@ const Hero = (props: HeroProps) => {
       <div className={cn("image-crop")}>
         <div className={cn("image-abs")}>
           <Image
-            src="/images/mock.png"
+            src="/images/mock1.png"
             alt="example"
             fill
             priority

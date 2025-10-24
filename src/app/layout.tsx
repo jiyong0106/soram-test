@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 
@@ -13,8 +14,54 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Soram",
-  description: "Soram app",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://soram.team"
+  ),
+  title: {
+    default: "Soram | 소람 - 같은 생각으로 연결 된 우리",
+    template: "%s | Soram",
+  },
+  description:
+    " 진짜 대화를 시작하는 감성 소셜 앱 소람, 소람은 외모나 스펙보다 내면과 진심에 집중하는 감성 소셜 앱입니다.",
+  applicationName: "Soram",
+  keywords: ["Soram", "소람", "커뮤니티", "연결", "소셜", "만남"],
+  authors: [{ name: "Soram" }],
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: "/",
+    siteName: "Soram",
+    title: "Soram | 소람 - 같은 생각으로 연결 된 우리",
+    description: "같은 생각으로 연결된 우리, 소람",
+
+    // 링크 공유 시 보여질 대표 이미지
+    images: [
+      { url: "/icons/logo.png", width: 1200, height: 630, alt: "Soram" },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Soram | 소람 - 같은 생각으로 연결 된 우리",
+    description: "같은 생각으로 연결된 우리, 소람",
+
+    // 링크 공유 시 보여질 대표 이미지
+    images: ["/icons/logo.png"],
+  },
+  // 주소가 여러개일 때 어떤 주소를 대표로 할지 설정
+  alternates: { canonical: "/" },
+
+  // 검색 엔진 최적화
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -24,6 +71,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <head>
+        <link rel="icon" href="/icons/rlogo.png" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
       </body>

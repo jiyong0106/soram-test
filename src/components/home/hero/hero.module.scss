@@ -28,8 +28,8 @@
   position: relative;
   width: 100%;
   height: 520px; /* 잘라낼 높이 */
-  margin-top: 24px;
-  overflow: hidden; /* 컨테이너 밖은 숨김 */
+  // margin-top: 24px;
+  // overflow: hidden; /* 컨테이너 밖은 숨김 */
 }
 
 .image-abs {
@@ -38,7 +38,8 @@
   right: 0;
   bottom: -200px; /* 하단으로 내려 일부 잘림 */
   top: 0;
-  height: 800px; /* fill 이미지가 꽉 차도록 */
+  transform: translateY(-80px); /* 이미지 전체를 위로 이동 */
+  // height: 800px; /* fill 이미지가 꽉 차도록 */
 }
 
 .image {

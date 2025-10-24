@@ -122,7 +122,6 @@ const Gallery = () => {
     <section className={cn("gallery", "u-section")} aria-label="Main features">
       <div className={cn("inner")}>
         <h2 className={cn("heading")}>
-          Main Service
           <span className={cn("sub")}>소람에서 만나보세요</span>
         </h2>
 
