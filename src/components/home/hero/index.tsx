@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <section className={cn("container")}>
       <div className={cn("inner")}>
-        <p>같은 생각으로 연결 된 우리</p>
+        <p>이야기와 목소리로 연결 된 우리</p>
         <h1>Soram</h1>
       </div>
       <div className={cn("image-crop")}>

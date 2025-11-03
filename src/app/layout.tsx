@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://soram.team"
   ),
   title: {
-    default: "Soram | 소람 - 같은 생각으로 연결 된 우리",
+    default: "Soram | 소람 - 이야기와 목소리로 연결 된 우리",
     template: "%s | Soram",
   },
   description:
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     url: "/",
     siteName: "Soram",
-    title: "Soram | 소람 - 같은 생각으로 연결 된 우리",
-    description: "같은 생각으로 연결된 우리, 소람",
+    title: "Soram | 소람 - 이야기와 목소리로 연결 된 우리",
+    description: "이야기와 목소리로 연결된 우리, 소람",
 
     // 링크 공유 시 보여질 대표 이미지
     images: [
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Soram | 소람 - 같은 생각으로 연결 된 우리",
-    description: "같은 생각으로 연결된 우리, 소람",
+    title: "Soram | 소람 - 이야기와 목소리로 연결 된 우리",
+    description: "이야기와 목소리로 연결된 우리, 소람",
 
     // 링크 공유 시 보여질 대표 이미지
     images: ["/icons/logo.png"],

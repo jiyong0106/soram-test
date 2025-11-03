@@ -1,5 +1,5 @@
 @use "sass:color";
-$thema: #ff6b6b;
+$thema: #ffb591;
 /* 한글 주석: 테마색 기반 그라데이션 (좌상단→우하단) */
 $thema-gradient: linear-gradient(
   135deg,
@@ -7,3 +7,15 @@ $thema-gradient: linear-gradient(
   $thema 50%,
   color.adjust($thema, $lightness: -10%) 100%
 );
+
+// #DB8B55
+// #EECF8B
+
+// 주 테마
+// #FF6B3E
+// 주황
+
+// 테마색2
+
+// #FFB591
+// 연한주황
