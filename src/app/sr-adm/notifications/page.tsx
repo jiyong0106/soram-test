@@ -3,12 +3,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import classNames from "classnames/bind";
-import { toast } from "react-toastify"; // [추가] 피드백을 위한 toast
 import styles from "./notificationsPage.module.scss";
 import NotificationForm from "@/components/admin/notifications/NotificationForm";
 import NotificationPreview from "@/components/admin/notifications/NotificationPreview";
-
-// [추가] API 함수 및 타입
 import { NotificationType } from "@/utils/type";
 import { sendBroadcastNotification } from "@/utils/api/adminApi";
 
@@ -72,7 +69,7 @@ export default function NotificationsPage() {
     setIsLoading(true);
     try {
       const data = await sendBroadcastNotification(payload);
-      toast.success(data.message || "전체 알림이 성공적으로 발송되었습니다.");
+      alert(data.message || "전체 알림이 성공적으로 발송되었습니다.");
       setFormState({
         title: "",
         body: "",
@@ -90,7 +87,7 @@ export default function NotificationsPage() {
       const message =
         axiosMessage ??
         (error instanceof Error ? error.message : "알림 발송에 실패했습니다.");
-      toast.error(message);
+      alert(message);
     } finally {
       setIsLoading(false);
     }
