@@ -68,9 +68,16 @@ const ReportDetailPage = () => {
       });
       setReport((prev) => (prev ? { ...prev, status: "RESOLVED" } : prev));
       alert("처리가 완료되었습니다.");
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const axiosMessage =
+        typeof (err as { response?: { data?: { message?: unknown } } })
+          ?.response?.data?.message === "string"
+          ? ((err as { response?: { data?: { message?: unknown } } })?.response
+              ?.data?.message as string)
+          : undefined;
       const message =
-        err?.response?.data?.message || err?.message || "작업에 실패했습니다.";
+        axiosMessage ??
+        (err instanceof Error ? err.message : "작업에 실패했습니다.");
       setError(message);
       alert(`오류: ${message}`);
     } finally {
@@ -89,9 +96,16 @@ const ReportDetailPage = () => {
       await resolveAdminReport(report.id);
       setReport((prev) => (prev ? { ...prev, status: "RESOLVED" } : prev));
       alert("처리가 완료되었습니다.");
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const axiosMessage =
+        typeof (err as { response?: { data?: { message?: unknown } } })
+          ?.response?.data?.message === "string"
+          ? ((err as { response?: { data?: { message?: unknown } } })?.response
+              ?.data?.message as string)
+          : undefined;
       const message =
-        err?.response?.data?.message || err?.message || "작업에 실패했습니다.";
+        axiosMessage ??
+        (err instanceof Error ? err.message : "작업에 실패했습니다.");
       setError(message);
       alert(`오류: ${message}`);
     } finally {
