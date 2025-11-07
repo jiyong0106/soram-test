@@ -3,25 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import classNames from "classnames/bind";
 import styles from "../adminPage.module.scss"; // Reusing dashboard styles
+import { getAdminReports } from "@/utils/api/adminApi";
+import { ReportType } from "@/utils/type";
 
 const cn = classNames.bind(styles);
-
-// Updated interface to include the 'type' field
-interface Report {
-  id: number;
-  type: string; // Added type field
-  reason: string;
-  status: "PENDING" | "RESOLVED" | "SANCTIONED";
-  createdAt: string;
-  reporter: {
-    id: number;
-    nickname: string;
-  };
-  reported: {
-    id: number;
-    nickname: string;
-  };
-}
 
 const reportTypeMap: { [key: string]: string } = {
   VOICE_RESPONSE: "음성 답변",
@@ -29,7 +14,7 @@ const reportTypeMap: { [key: string]: string } = {
 };
 
 const AdminReportsPage = () => {
-  const [reports, setReports] = useState<Report[]>([]);
+  const [reports, setReports] = useState<ReportType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -42,25 +27,17 @@ const AdminReportsPage = () => {
         return;
       }
 
-      const API_URL = "http://localhost:3001/api/v1/admin/reports";
-
       try {
-        const response = await fetch(API_URL, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const data = await getAdminReports();
 
-        if (response.status === 401 || response.status === 403) {
+        if (data.status === 401 || data.status === 403) {
           localStorage.removeItem("accessToken");
           router.push("/sr-adm/login");
           return;
         }
 
-        if (!response.ok) {
-          throw new Error("신고 목록을 불러오는 데 실패했습니다.");
-        }
-
-        const result = await response.json();
-        setReports(result.data || []);
+        const result = data.data;
+        setReports(result || []);
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);

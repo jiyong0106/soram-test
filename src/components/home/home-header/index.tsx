@@ -9,14 +9,6 @@ const HomeHeader = () => {
     <header className={cn("container")}>
       <div className={cn("inner")}>
         <div className={cn("logo")}>
-          <a
-            href="/sr-adm"
-            className={cn("admin-btn")}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            .
-          </a>
           <span className={cn("logo-text")}>SORAM</span>
         </div>
         <div className={cn("right")}>

@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import classNames from "classnames/bind";
 import styles from "./adminLoginPage.module.scss";
+import { getAdminLogin } from "@/utils/api/adminApi";
+
 const cn = classNames.bind(styles);
 
 const AdminLoginPage = () => {
@@ -18,24 +20,8 @@ const AdminLoginPage = () => {
     setError("");
     setIsLoading(true);
 
-    // In a real application, this URL should come from an environment variable
-    const API_URL = "http://localhost:3001/api/v1/auth/admin/login";
-
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "로그인에 실패했습니다.");
-      }
-
-      const data = await response.json();
+      const data = await getAdminLogin(email, password);
       if (data.accessToken) {
         localStorage.setItem("accessToken", data.accessToken);
         router.push("/sr-adm"); // Redirect to admin dashboard on success

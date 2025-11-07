@@ -4,39 +4,16 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import classNames from "classnames/bind";
 import styles from "../../adminPage.module.scss"; // Reusing dashboard styles
-
+import {
+  getAdminReportDetail,
+  postAdminSanction,
+  resolveAdminReport,
+} from "@/utils/api/adminApi";
+import { ReportDetailType } from "@/utils/type";
 const cn = classNames.bind(styles);
 
-// Updated interface to match the full API response for report details
-interface ReportDetail {
-  id: number;
-  reason: string;
-  details: string;
-  type: string;
-  status: "PENDING" | "RESOLVED";
-  createdAt: string;
-  reporter: {
-    id: number;
-    nickname: string;
-  };
-  reported: {
-    id: number;
-    nickname: string;
-  };
-  reportedContent?: {
-    id: number;
-    type: "TEXT" | "VOICE";
-    textContent: string | null;
-    audioUrl: string | null;
-    topicBox: {
-      title: string;
-      content: string;
-    };
-  };
-}
-
 const ReportDetailPage = () => {
-  const [report, setReport] = useState<ReportDetail | null>(null);
+  const [report, setReport] = useState<ReportDetailType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState("");
@@ -55,24 +32,9 @@ const ReportDetailPage = () => {
         return;
       }
 
-      const API_URL = `http://localhost:3001/api/v1/admin/reports/${id}`;
-
       try {
-        const response = await fetch(API_URL, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        if (response.status === 401 || response.status === 403) {
-          localStorage.removeItem("accessToken");
-          router.push("/sr-adm/login");
-          return;
-        }
-
-        if (!response.ok) {
-          throw new Error("신고 상세 정보를 불러오는 데 실패했습니다.");
-        }
-
-        const data: ReportDetail = await response.json();
+        const data = await getAdminReportDetail(id as string);
+        // 백엔드가 상세 객체를 그대로 반환하므로 그대로 상태에 저장
         setReport(data);
       } catch (err) {
         if (err instanceof Error) {
@@ -91,7 +53,7 @@ const ReportDetailPage = () => {
   const handleApiCall = async (
     url: string,
     options: RequestInit,
-    successStatus: ReportDetail["status"]
+    successStatus: ReportDetailType["status"]
   ) => {
     setIsProcessing(true);
     setError("");
@@ -128,34 +90,52 @@ const ReportDetailPage = () => {
     }
   };
 
-  const handleSanction = () => {
+  const handleSanction = async () => {
     if (!report) return;
     const reason = window.prompt(
       "제재 사유를 입력하세요:",
       "커뮤니티 가이드라인 위반"
     );
-    if (reason) {
-      const body = {
+    if (!reason) return;
+
+    setIsProcessing(true);
+    setError("");
+    try {
+      await postAdminSanction({
         reportId: report.id,
-        type: "CONTENT_REMOVAL", // Defaulting to this type for now
-        reason: reason,
-      };
-      handleApiCall(
-        "http://localhost:3001/api/v1/admin/sanctions",
-        { method: "POST", body: JSON.stringify(body) },
-        "RESOLVED"
-      );
+        type: "CONTENT_REMOVAL",
+        reason,
+      });
+      setReport((prev) => (prev ? { ...prev, status: "RESOLVED" } : prev));
+      alert("처리가 완료되었습니다.");
+    } catch (err: any) {
+      const message =
+        err?.response?.data?.message || err?.message || "작업에 실패했습니다.";
+      setError(message);
+      alert(`오류: ${message}`);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
-  const handleResolve = () => {
+  const handleResolve = async () => {
     if (!report) return;
-    if (window.confirm("정말로 이 신고를 '문제 없음'으로 처리하시겠습니까?")) {
-      handleApiCall(
-        `http://localhost:3001/api/v1/admin/reports/${report.id}/resolve`,
-        { method: "POST" },
-        "RESOLVED"
-      );
+    if (!window.confirm("정말로 이 신고를 '문제 없음'으로 처리하시겠습니까?"))
+      return;
+
+    setIsProcessing(true);
+    setError("");
+    try {
+      await resolveAdminReport(report.id);
+      setReport((prev) => (prev ? { ...prev, status: "RESOLVED" } : prev));
+      alert("처리가 완료되었습니다.");
+    } catch (err: any) {
+      const message =
+        err?.response?.data?.message || err?.message || "작업에 실패했습니다.";
+      setError(message);
+      alert(`오류: ${message}`);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
