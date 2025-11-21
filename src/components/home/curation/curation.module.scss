@@ -17,6 +17,7 @@
 
 .head {
   max-width: 640px;
+  margin: 0 auto;
 }
 
 .eyebrow {
@@ -30,9 +31,11 @@
   font-weight: 800;
   font-size: clamp(28px, 6vw, 44px);
   line-height: 1.15;
+  text-align: center;
 }
 
 .desc {
+  text-align: center;
   margin-top: 12px;
   color: rgba(0, 0, 0, 0.7);
 }
@@ -50,8 +53,9 @@
 .cards {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr; /* 모바일: 1열 */
+  gap: 20px; /* 모바일 간격 */
+  justify-items: stretch;
 }
 
 .card {
@@ -172,14 +176,23 @@
     padding: 140px 24px;
   }
   .cards {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
+    /* 태블릿: 정확히 2열 */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+    row-gap: 24px;
+    justify-items: stretch;
   }
 }
 
 @media (min-width: 1024px) {
   .inner {
     padding: 180px 24px;
+  }
+  .cards {
+    /* 데스크탑: 2열 유지, 간격 약간 확대 */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 28px;
+    row-gap: 28px;
   }
   .card-title {
     font-size: 22px;

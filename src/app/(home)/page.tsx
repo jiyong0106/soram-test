@@ -17,8 +17,8 @@ export default function Home() {
     <div className={styles.page}>
       <HomeHeader />
       <Hero />
-      <Gallery />
       <Curation />
+      <Gallery />
       <Footer />
     </div>
   );
