@@ -58,6 +58,11 @@
   justify-items: stretch;
 }
 
+.card-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
 .card {
   position: relative;
   background: linear-gradient(180deg, #ffffff, #ffffff) padding-box,
@@ -68,6 +73,7 @@
   padding: 20px;
   box-shadow: 0 12px 28px rgba(12, 20, 50, 0.12);
   transition: transform 220ms ease, box-shadow 220ms ease;
+  min-height: 200px; /* 모바일 기본 카드 세로 길이 */
 
   /* 카드 상단 은은한 하이라이트 */
   &::after {
@@ -138,12 +144,12 @@
 
 .card-title {
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.2;
   position: relative;
   padding-bottom: 12px;
   margin-bottom: 10px;
-
+  color: #ff6b3e;
   /* 타이틀-설명 사이 그라데이션 구분선 */
   &::after {
     content: "";
@@ -171,29 +177,61 @@
   line-height: 1.7;
 }
 
+/* 패딩 박스: 기본은 숨김(모바일) */
+.paddingBox {
+  display: none;
+  height: 0;
+}
+
 @media (min-width: 768px) {
   .inner {
     padding: 140px 24px;
   }
   .cards {
-    /* 태블릿: 정확히 2열 */
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* 태블릿: 4열로 배치하여 높낮이 변주 적용 */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     column-gap: 24px;
     row-gap: 24px;
     justify-items: stretch;
+  }
+  /* 태블릿: 카드 높이 조금 더 길게 */
+  .card {
+    min-height: 380px;
+  }
+  /* 패딩 박스 노출 규칙: 1,3 아래 / 2,4 위 */
+  .card-wrap.is-odd .paddingBox--bottom {
+    display: block;
+    height: 60px;
+  }
+  .card-wrap.is-even .paddingBox--top {
+    display: block;
+    height: 60px;
   }
 }
 
 @media (min-width: 1024px) {
   .inner {
-    padding: 180px 24px;
+    padding: 150px 24px;
   }
   .cards {
-    /* 데스크탑: 2열 유지, 간격 약간 확대 */
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* 데스크탑: 4열 유지, 간격 약간 확대 */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     column-gap: 28px;
     row-gap: 28px;
+    margin-top: 100px;
   }
+  /* 데스크탑: 카드 더 길게 */
+  .card {
+    min-height: 380px;
+  }
+  /* 패딩 박스 높이 조정(선택적) */
+  .card-wrap.is-odd .paddingBox--bottom {
+    height: 80px;
+  }
+  .card-wrap.is-even .paddingBox--top {
+    height: 80px;
+  }
+
   .card-title {
     font-size: 22px;
   }

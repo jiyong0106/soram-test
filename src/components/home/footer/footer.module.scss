@@ -1,8 +1,13 @@
 @use "@/styles/variables" as *;
 
 .container {
-  background: #f7f7f8;
-  border-top: 1px solid #eceff3;
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    $thema-gradient;
+  // border-top: 1px solid #eceff3;
 }
 
 .inner {

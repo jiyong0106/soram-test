@@ -11,12 +11,14 @@ import Curation from "@/components/home/curation";
 import styles from "./page.module.scss";
 import HomeHeader from "@/components/home/home-header";
 import Footer from "@/components/home/footer";
+import Survey from "@/components/home/survey";
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <HomeHeader />
       <Hero />
+      <Survey />
       <Curation />
       <Gallery />
       <Footer />
